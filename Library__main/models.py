@@ -1,10 +1,8 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 import re, datetime
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 
 # custom validators
@@ -38,32 +36,6 @@ def phoneValidator(value):
 # models
 # models
 # models
-class Profile(models.Model):
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-    )
-    phone_number = models.CharField(
-        validators=[phoneValidator],
-        max_length=12,
-        blank=True,
-        help_text="Enter the User's phone number.",
-        verbose_name="Phone number",
-    )
-
-
-# update User model
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-
 class Book(models.Model):
     title = models.CharField(
         max_length=100,
@@ -114,12 +86,19 @@ class Book(models.Model):
         help_text="Enter the name of the publisher.",
         verbose_name="Book publisher",
     )
-    amount = models.IntegerField(
-        default=5,
-        validators=[MinValueValidator(0)],
-        help_text="Enter the amount of books.",
-        verbose_name="Amount of books in the library",
-    )
 
     def __str__(self):
         return f"{self.title} by {self.author} ({self.year_published})"
+
+
+class CustomUser(AbstractUser):
+    phone = models.CharField(
+        max_length=12,
+        validators=[phoneValidator],
+        help_text="Enter the User's phone number",
+        verbose_name="Phone number",
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.username
