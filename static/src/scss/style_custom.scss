@@ -1,0 +1,77 @@
+.nav-link {
+	color: $custom_grey;
+}
+
+.nav-link:hover {
+	color: $custom_red;
+}
+
+body {
+	border-radius: 15px;
+	margin: 20px;
+	box-shadow: 0 0 20px $custom_grey;
+	min-height: 95vh;
+}
+
+#container_main {
+	min-height: 95vh;
+}
+
+// space block after #myHomework_labelRow
+#myHomework_labelRow + div {
+	position: relative;
+	top: 50px;
+}
+
+footer {
+	position: sticky;
+	top: 95%;
+}
+
+@media screen and (min-width: 600px) {
+	.myHomework_labelBr {
+		display: none;
+	}
+	#myHomework_label {
+		font-family: $font-family-JetBrains;
+		height: 150px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: unset;
+	}
+}
+
+.logoString_h3,
+.logoString_h5,
+#headerGreeting {
+	font-family: $font-family-JetBrains;
+}
+
+.logoString_h3 > h3 {
+	color: $custom_darkgrey !important;
+}
+
+#content_main {
+	width: 100%;
+	min-height: 75vh;
+	background-image: url('../../IMG/bg__.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+.logInReg_mainpage{
+	font-size: 1.3rem;
+}
+
+// #ul_get_started {
+// 	list-style-type: none;
+// 	li::marker {
+// 		content: '\27A7';
+// 	}
+// 	li {
+// 		padding-left: 15px;
+// 	}
+// 	line-height: 40px;
+// }
