@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+
+{% block content__members %}
+
+<div class="row">
+	<h3 class="text-center detailedUl_h3">
+		<b>"LIBRARY MEMBERS"</b>
+	</h3>
+</div>
+<div class="row">
+	{% if registeredMembers %}
+    <div class="offset-1 col-10 table-responsive">
+		<table class="table table-bordered table-sm text-center caption-top text-small">
+			<caption class="text-center">
+				<div class="d-flex justify-content-between">
+					<span>Current Library Members data</span>
+				</div>
+			</caption>
+			<thead>
+				<tr class="align-middle">
+					<th scope="col">#</th>
+					<th scope="col">Username</th>
+					<th scope="col">First and last name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Phone number</th>
+					<th scope="col">Date of registration</th>
+					<th scope="col">Loaned books</th>
+					<th scope="col">Edit</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody class="table-group-divider">
+				{% for i in registeredMembers %}
+				<tr class="align-middle">
+					<td>{{forloop.counter}}</td>
+					<td>{{i.username}}</td>
+					<td>{{i.first_name}} {{i.last_name}}</td>
+					<td>{{i.email}}</td>
+                    <td>{{i.phone}}</td>
+                    <td>{{i.date_joined|date:"d.m.Y"}}</td>
+					<!-- hide from user -->
+					<td><a href="" class="nav-link text-center">&#128214;</a></td>
+					<td><a href="{% url 'members__edit' i.id %}" class="nav-link text-center">&#9998;</a></td>
+					<td><a href="{% url 'members__delete' i.id %}" class="nav-link text-center">&#10008;</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% else %}
+		<div class="offset-1 col-10 mt-3">
+			<p class="text-center"><b>There are no registered members in the library.</b></p>
+		</div>
+	{% endif %}
+</div>
+
+{% endblock %}

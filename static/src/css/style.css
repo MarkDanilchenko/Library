@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
@@ -501,6 +500,14 @@ footer {
   font-size: 1.3rem;
 }
 
+dl {
+  color: rgb(92, 92, 92);
+}
+
+caption {
+  color: rgb(92, 92, 92);
+}
+
 .section_our_solution .row {
   align-items: center;
 }
@@ -559,8 +566,6 @@ footer {
 .solution_card .solu_title h3 {
   color: rgb(223, 14, 14);
   font-size: 1.3rem;
-  margin-top: 13px;
-  margin-bottom: 13px;
 }
 
 .solution_card .solu_description p {
@@ -571,10 +576,6 @@ footer {
 }
 
 .solution_card .solu_description hr {
-  color: rgb(92, 92, 92);
-}
-
-.solution_card .solu_description ul > a > li {
   color: rgb(92, 92, 92);
 }
 
@@ -646,11 +647,6 @@ footer {
 }
 .solution_card_link {
   text-decoration: none;
-}
-
-.solution_card_link:hover li {
-  list-style-type: "➪";
-  padding-left: 2px;
 }
 
 .detailedUl_h3 {

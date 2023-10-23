@@ -102,8 +102,6 @@
 .solution_card .solu_title h3 {
 	color: $custom_red;
 	font-size: 1.3rem;
-	margin-top: 13px;
-	margin-bottom: 13px;
 }
 
 .solution_card .solu_description p {
@@ -117,9 +115,9 @@
 	color: $custom_darkgrey;
 }
 
-.solution_card .solu_description ul > a > li {
-	color: $custom_darkgrey;
-}
+// .solution_card .solu_description ul > a > li {
+// 	color: $custom_darkgrey;
+// }
 
 .solution_card .solu_description button {
 	border: 0;
@@ -202,10 +200,10 @@
 	text-decoration: none;
 }
 
-.solution_card_link:hover li {
-	list-style-type: '\27AA';
-	padding-left: 2px;
-}
+// .solution_card_link:hover li {
+// 	list-style-type: '\27AA';
+// 	padding-left: 2px;
+// }
 
 .detailedUl_h3 {
 	color: $custom_darkgrey;

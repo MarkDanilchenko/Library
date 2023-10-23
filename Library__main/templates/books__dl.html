@@ -1,0 +1,27 @@
+{% extends 'index.html' %} {% block content__books_detailedUl %}
+
+<div class="row">
+	<h3 class="text-center detailedUl_h3">
+		<b>"BOOKS"</b>
+	</h3>
+</div>
+<div class="row d-flex justify-content-center">
+	<div class="col-lg-6 col-10">
+		<dl class="text-center">
+			<hr class="offset-1 col-10" />
+			<!-- hide from user -->
+            <dt><b>ADMIN ONLY</b> - Edit books information:</dt>
+			<dd class="text-small"><i>View, add, edit or delete books information.</i></dd>
+			<dt>Book list:</dt>
+			<dd class="text-small">
+				<i
+					>Browse all books in the library. <br />Find the book you are looking for and rent it by one click! <br />Here you also can find
+					the description of all books.</i
+				>
+			</dd>
+			<a href="{% url 'books__list' %}" class="btn btn-outline-secondary my-3" title="Book list">All books</a>
+		</dl>
+	</div>
+</div>
+
+{% endblock %}
