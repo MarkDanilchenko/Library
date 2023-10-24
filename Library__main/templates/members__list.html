@@ -1,6 +1,4 @@
-{% extends 'index.html' %}
-
-{% block content__members %}
+{% extends 'index.html' %} {% block content__members %}
 
 <div class="row">
 	<h3 class="text-center detailedUl_h3">
@@ -9,11 +7,11 @@
 </div>
 <div class="row">
 	{% if registeredMembers %}
-    <div class="offset-1 col-10 table-responsive">
+	<div class="offset-1 col-10 table-responsive">
 		<table class="table table-bordered table-sm text-center caption-top text-small">
 			<caption class="text-center">
 				<div class="d-flex justify-content-between">
-					<span>Current Library Members data</span>
+					<span>Library Members</span>
 				</div>
 			</caption>
 			<thead>
@@ -36,21 +34,27 @@
 					<td>{{i.username}}</td>
 					<td>{{i.first_name}} {{i.last_name}}</td>
 					<td>{{i.email}}</td>
-                    <td>{{i.phone}}</td>
-                    <td>{{i.date_joined|date:"d.m.Y"}}</td>
+					<td>{{i.phone}}</td>
+					<td>{{i.date_joined|date:"d.m.Y"}}</td>
 					<!-- hide from user -->
-					<td><a href="" class="nav-link text-center">&#128214;</a></td>
-					<td><a href="{% url 'members__edit' i.id %}" class="nav-link text-center">&#9998;</a></td>
-					<td><a href="{% url 'members__delete' i.id %}" class="nav-link text-center">&#10008;</a></td>
+					<td><a href="{% url 'members__loans' i.id %}" class="nav-link text-center" title="Loaned books">&#128214;</a></td>
+					<td><a href="{% url 'members__edit' i.id %}" class="nav-link text-center" title="Edit member">&#9998;</a></td>
+					<td><a href="{% url 'members__delete' i.id %}" class="nav-link text-center" title="Delete member">&#10008;</a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
 		</table>
+		<div class="d-flex justify-content-center">
+			<a href="/" class="nav-link" title="Home page">Back to main page</a>
+		</div>
 	</div>
 	{% else %}
-		<div class="offset-1 col-10 mt-3">
-			<p class="text-center"><b>There are no registered members in the library.</b></p>
+	<div class="offset-1 col-10 mt-3">
+		<p class="text-center"><b>There are no registered members in the library.</b></p>
+		<div class="d-flex justify-content-center">
+			<a href="/" class="nav-link" title="Home page">Back to main page</a>
 		</div>
+	</div>
 	{% endif %}
 </div>
 

@@ -490,22 +490,14 @@ footer {
 #content_main {
   width: 100%;
   min-height: 75vh;
-  background-image: url("../../IMG/bg__.jpg");
+  background-image: url("../../IMG/bg__.svg");
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-size: 50% 50%;
+  background-position: right bottom;
 }
 
 .logInReg_mainpage {
   font-size: 1.3rem;
-}
-
-dl {
-  color: rgb(92, 92, 92);
-}
-
-caption {
-  color: rgb(92, 92, 92);
 }
 
 .section_our_solution .row {

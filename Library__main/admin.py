@@ -15,7 +15,7 @@ class CustomUserAdmin(admin.ModelAdmin):
     #     ),
     #     (("Username and phone"), {"fields": ("username", "phone")}),
     #     (("Name and surname"), {"fields": ("first_name", "last_name")}),
-       
+
     # )
     list_display = (
         "username",
@@ -40,18 +40,19 @@ class BookAdmin(admin.ModelAdmin):
         "genre",
         "publisher",
         "description",
+        "status",
     )
-    search_fields = ("title", "author", "year_published", "genre")
-    list_filter = ("title", "author", "year_published", "genre")
+    search_fields = ("title", "author", "year_published", "genre", "status")
+    list_filter = ("title", "author", "year_published", "genre", "status")
 
 
 admin.site.register(models.Book, BookAdmin)
 
 
 class BookInstanceAdmin(admin.ModelAdmin):
-    list_display = ("book", "user", "due_back", "status", "id")
-    search_fields = ("book__title", "id")
-    list_filter = ("status", "due_back")
+    list_display = ("book", "user", "due_back")
+    search_fields = "book__title",
+    list_filter = "due_back",
 
 
 admin.site.register(models.BookInstance, BookInstanceAdmin)

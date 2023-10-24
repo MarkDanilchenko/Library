@@ -1,0 +1,56 @@
+{% extends 'index.html' %} {% block content__members %}
+
+<div class="row">
+	<h3 class="text-center detailedUl_h3">
+		<b>"MEMBERS LOANED BOOKS"</b>
+	</h3>
+</div>
+<div class="row">
+	{% if member_loanes %}
+	<div class="offset-1 col-10 table-responsive">
+		<table class="table table-striped table-bordered table-sm text-center caption-top text-small">
+			<caption class="text-center">
+				<div class="d-flex justify-content-between">
+					<span><b>{{username}}'s</b> books</span>
+				</div>
+			</caption>
+			<thead>
+				<tr class="align-middle">
+					<th scope="col">#</th>
+					<th scope="col">Title</th>
+					<th scope="col">Username</th>
+					<th scope="col">Email</th>
+					<th scope="col">Phone</th>
+					<th scope="col">Due back</th>
+				</tr>
+			</thead>
+			<tbody class="table-group-divider">
+				{% for i in member_loanes %}
+				<tr class="align-middle">
+					<td>{{forloop.counter}}</td>
+					<td>{{i.book.title}}</td>
+					<td>{{i.user.username}}</td>
+					<td>{{i.user.email}}</td>
+					<td>{{i.user.phone}}</td>
+					{% if i.is_overdue %}
+					<td class="text-danger"><b>{{i.due_back|date:"d.m.Y"}}</b></td>
+					{% else %}
+					<td class="text-success"><b>{{i.due_back|date:"d.m.Y"}}</b></td>
+					{% endif %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="d-flex justify-content-center">
+			<a href="{% url 'members__list' %}" class="nav-link" title="Back">Back to members list</a>
+		</div>
+	</div>
+	{% else %}
+	<div class="offset-1 col-10 mt-3 text-center">
+		<p><b>{{username}}</b> has no any loaned books yet.</p>
+		<a href="{% url 'members__list' %}" class="nav-link" title="Back">Back to members list</a>
+	</div>
+	{% endif %}
+</div>
+
+{% endblock %}

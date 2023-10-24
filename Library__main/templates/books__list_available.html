@@ -1,17 +1,17 @@
-{% extends 'index.html' %} {% block content__books %} {% autoescape off %}
+{% extends 'index.html' %} {% block content__books %}
 
 <div class="row">
 	<h3 class="text-center detailedUl_h3">
-		<b>"LIBRARY BOOKS"</b>
+		<b>"AVAILABLE BOOKS"</b>
 	</h3>
 </div>
 <div class="row">
-	{% if all_books %}
+	{% if available_books %}
 	<div class="offset-1 col-10 table-responsive">
 		<table class="table table-striped table-bordered table-sm text-center caption-top text-small">
 			<caption class="text-center">
 				<div class="d-flex justify-content-between">
-					<span>Library books</span>
+					<span>Available books</span>
 					<span
 						><a href="{% url 'books__add' %}" class="nav-link" title="Add a new book"><b> &#8593; Add book</b></a></span
 					>
@@ -33,7 +33,7 @@
 				</tr>
 			</thead>
 			<tbody class="table-group-divider">
-				{% for i in all_books %}
+				{% for i in available_books %}
 				<tr class="align-middle">
 					<td>{{forloop.counter}}</td>
 					<td>{{i.title}}</td>
@@ -55,12 +55,9 @@
 				{% endfor %}
 			</tbody>
 		</table>
-		<div class="d-flex justify-content-center mb-3">
-			<a href="{% url 'books__My_loaned' %}" class="nav-link" title="Loaned books"><b>My Books</b></a>
-			<span class="mx-3">|</span>
-			<a href="{% url 'books__available' %}" class="nav-link" title="Available books">Available Books</a>
+		<div class="d-flex justify-content-center">
+			<a href="{% url 'books__list' %}" class="nav-link" title="Back">Back to books list</a>
 		</div>
-		<div class="d-flex justify-content-center"><a href="/" class="nav-link" title="Back to main page">Back to main page</a></div>
 		<div class="offset-1 col-10 mt-3 text-center">
 			<a href="{% url 'books__add' %}" class="btn btn-outline-secondary" title="Add a new book">&#8593;</a>
 			<p class="text-small"><i>Add a new book</i></p>
@@ -68,11 +65,12 @@
 	</div>
 	{% else %}
 	<div class="offset-1 col-10 mt-3 text-center">
-		<p><b>There are no any books in the library.</b></p>
+		<p><b>There are no any available books in the library.</b></p>
+		<a href="{% url 'books__list' %}" class="nav-link mb-3" title="Back">Back to books list</a>
 		<a href="{% url 'books__add' %}" class="btn btn-outline-secondary" title="Add a new book">&#8593;</a>
 		<p class="text-small"><i>Add a new book</i></p>
 	</div>
 	{% endif %}
 </div>
 
-{% endautoescape %} {% endblock %}
+{% endblock %}

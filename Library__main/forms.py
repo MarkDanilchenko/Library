@@ -60,6 +60,7 @@ class BookForm(forms.ModelForm):
             "genre",
             "publisher",
             "description",
+            "status",
         )
 
     title = forms.CharField(
@@ -96,7 +97,7 @@ class BookForm(forms.ModelForm):
     publisher = forms.CharField(
         max_length=100,
         required=False,
-        initial='NYC, Official Book Publisher',
+        initial="NYC, Official Book Publisher",
         help_text="Enter the name of the publisher.",
         label="Book publisher",
     )
@@ -109,6 +110,19 @@ class BookForm(forms.ModelForm):
         widget=forms.Textarea,
     )
 
+    statusOption = [
+        ("Available", "Available"),
+        ("Not Available", "Not Available"),
+    ]
+
+    status = forms.ChoiceField(
+        choices=statusOption,
+        required=True,
+        help_text="Select the book availability.",
+        label="Book availability",
+    )
+
+
 class BookEditForm(BookForm):
     class Meta:
         model = models.Book
@@ -119,4 +133,5 @@ class BookEditForm(BookForm):
             "genre",
             "publisher",
             "description",
+            "status",
         )

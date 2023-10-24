@@ -55,23 +55,24 @@ footer {
 #content_main {
 	width: 100%;
 	min-height: 75vh;
-	background-image: url('../../IMG/bg__.jpg');
+	background-image: url('../../IMG/bg__.svg');
 	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
+	background-size: 50% 50%;
+	// background-attachment: fixed;
+	background-position: right bottom;
 }
 
 .logInReg_mainpage {
 	font-size: 1.3rem;
 }
 
-dl {
-	color: $custom_darkgrey;
-}
+// dl {
+// 	color: $custom_darkgrey;
+// }
 
-caption {
-	color: $custom_darkgrey;
-}
+// caption {
+// 	color: $custom_darkgrey;
+// }
 
 // #ul_get_started {
 // 	list-style-type: none;

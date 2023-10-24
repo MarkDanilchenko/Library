@@ -10,16 +10,15 @@
 		<dl class="text-center">
 			<hr class="offset-1 col-10" />
 			<!-- hide from user -->
-            <dt><b>ADMIN ONLY</b> - Edit books information:</dt>
+			<dt><b>FOR ADMIN ONLY</b> - Edit books information:</dt>
 			<dd class="text-small"><i>View, add, edit or delete books information.</i></dd>
 			<dt>Book list:</dt>
 			<dd class="text-small">
-				<i
-					>Browse all books in the library. <br />Find the book you are looking for and rent it by one click! <br />Here you also can find
-					the description of all books.</i
-				>
+				<i>Browse all books in the library. <br />Find the book you are looking for and rent it by one click! <br /></i>
 			</dd>
-			<a href="{% url 'books__list' %}" class="btn btn-outline-secondary my-3" title="Book list">All books</a>
+			<a href="{% url 'books__list' %}" class="btn btn-outline-secondary my-3" title="All books">All books</a>
+			<a href="{% url 'books__available' %}" class="btn btn-outline-secondary my-3" title="Available books">Available books</a>
+			<a href="{% url 'books__My_loaned' %}" class="btn btn-secondary my-3" title="Loaned books">My books</a>
 		</dl>
 	</div>
 </div>

@@ -88,6 +88,19 @@ class Book(models.Model):
         verbose_name="Book publisher",
     )
 
+    statusOption = [
+        ("Available", "Available"),
+        ("Not Available", "Not Available"),
+    ]
+
+    status = models.CharField(
+        max_length=100,
+        choices=statusOption,
+        default="Available",
+        help_text="Book availability",
+        verbose_name="Book availability",
+    )
+
     class Meta:
         ordering = ["title"]
 
@@ -109,32 +122,9 @@ class CustomUser(AbstractUser):
 
 
 class BookInstance(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False,
-        unique=True,
-        help_text="Unique ID for this particular book across whole library",
-    )
     book = models.ForeignKey(Book, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
-    due_back = models.DateField(null=True, blank=True)
-
-    LOAN_STATUS = (
-        ("m", "Maintenance"),
-        ("o", "On loan"),
-        ("a", "Available"),
-        ("r", "Reserved"),
-    )
-
-    status = models.CharField(
-        max_length=1,
-        choices=LOAN_STATUS,
-        blank=True,
-        default="m",
-        help_text="Book availability",
-        verbose_name="Book status",
-    )
+    due_back = models.DateField()
 
     class Meta:
         ordering = ["due_back"]
@@ -145,4 +135,6 @@ class BookInstance(models.Model):
         return False
 
     def __str__(self):
-        return f"{self.id} ({self.book.title})"
+        return (
+            f"{self.book.title}, due back: {self.due_back}, user: {self.user.username}"
+        )

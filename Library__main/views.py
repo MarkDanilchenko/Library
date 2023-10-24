@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from . import forms, models
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
+import datetime
 
 
 # user registration
@@ -63,6 +64,22 @@ def members__delete(request, id):
         return redirect("/members__list")
 
 
+def members__loans(request, id):
+    try:
+        member_loanes = models.BookInstance.objects.filter(user=id)
+        username = models.CustomUser.objects.get(id=id).username
+        if member_loanes:
+            return render(
+                request,
+                "members__loans.html",
+                {"member_loanes": member_loanes, "username": username},
+            )
+        else:
+            raise Exception
+    except:
+        return render(request, "members__loans.html", {"username": username})
+
+
 # books functions
 # books functions
 # books functions
@@ -75,6 +92,40 @@ def books__list(request):
             raise Exception
     except:
         return render(request, "books__list.html")
+
+
+def books__available(request):
+    try:
+        available_books = models.Book.objects.filter(
+            status=models.Book.statusOption[0][0]
+        )
+        if available_books:
+            return render(
+                request,
+                "books__list_available.html",
+                {"available_books": available_books},
+            )
+        else:
+            raise Exception
+    except:
+        return render(request, "books__list_available.html")
+
+
+def books__My_loaned(request):
+    try:
+        my_loaned_books = models.BookInstance.objects.filter(user=request.user)
+        username = request.user.username
+        if my_loaned_books:
+            print(my_loaned_books)
+            return render(
+                request,
+                "books__list_my_loaned.html",
+                {"my_loaned_books": my_loaned_books, "username": username},
+            )
+        else:
+            raise Exception
+    except:
+        return render(request, "books__list_my_loaned.html")
 
 
 def books__add(request):
@@ -106,3 +157,27 @@ def books__delete(request, id):
         return redirect("/books__list")
     except:
         return redirect("/books__list")
+
+
+# rent/return functions
+# rent/return functions
+# rent/return functions
+def books__rent(request, id):
+    book = models.Book.objects.get(id=id)
+    if book.status == models.Book.statusOption[0][0]:
+        user = request.user
+        due_back = datetime.date.today() + datetime.timedelta(days=14)
+        models.BookInstance.objects.create(book=book, user=user, due_back=due_back)
+        models.Book.objects.filter(id=id).update(
+            status=f"{models.Book.statusOption[1][0]} <br> until <br> {due_back}"
+        )
+    return redirect("/books__list")
+
+
+def books__return(request, id):
+    book = models.BookInstance.objects.get(id=id)
+    models.Book.objects.filter(id=book.book.id).update(
+        status=models.Book.statusOption[0][0]
+    )
+    models.BookInstance.objects.filter(id=id).delete()
+    return redirect("/books__My_loaned")
