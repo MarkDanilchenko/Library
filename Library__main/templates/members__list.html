@@ -1,4 +1,4 @@
-{% extends 'index.html' %} {% block content__members %}
+{% extends 'index.html' %} {% block content__members %} {% autoescape off %}
 
 <div class="row">
 	<h3 class="text-center detailedUl_h3">
@@ -23,8 +23,10 @@
 					<th scope="col">Phone number</th>
 					<th scope="col">Date of registration</th>
 					<th scope="col">Loaned books</th>
+					{% if perms.Library__main.change_customuser and perms.Library__main.delete_customuser %}
 					<th scope="col">Edit</th>
 					<th scope="col">Delete</th>
+					{% endif %}
 				</tr>
 			</thead>
 			<tbody class="table-group-divider">
@@ -36,26 +38,28 @@
 					<td>{{i.email}}</td>
 					<td>{{i.phone}}</td>
 					<td>{{i.date_joined|date:"d.m.Y"}}</td>
-					<!-- hide from user -->
+					{% if perms.Library__main.view_bookinstance and perms.Library__main.view_customuser %}
 					<td><a href="{% url 'members__loans' i.id %}" class="nav-link text-center" title="Loaned books">&#128214;</a></td>
+					{% endif %}
+					{% if perms.Library__main.change_customuser and perms.Library__main.delete_customuser %}
 					<td><a href="{% url 'members__edit' i.id %}" class="nav-link text-center" title="Edit member">&#9998;</a></td>
 					<td><a href="{% url 'members__delete' i.id %}" class="nav-link text-center" title="Delete member">&#10008;</a></td>
+					{% endif %}
 				</tr>
 				{% endfor %}
 			</tbody>
 		</table>
 		<div class="d-flex justify-content-center">
-			<a href="/" class="nav-link" title="Home page">Back to main page</a>
+			<a href="/" class="nav-link" title="Home page">Home</a>
 		</div>
 	</div>
 	{% else %}
 	<div class="offset-1 col-10 mt-3">
 		<p class="text-center"><b>There are no registered members in the library.</b></p>
 		<div class="d-flex justify-content-center">
-			<a href="/" class="nav-link" title="Home page">Back to main page</a>
+			<a href="/" class="nav-link" title="Home page">Home</a>
 		</div>
 	</div>
 	{% endif %}
 </div>
-
-{% endblock %}
+{% endautoescape %} {% endblock %}

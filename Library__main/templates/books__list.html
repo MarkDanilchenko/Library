@@ -12,9 +12,11 @@
 			<caption class="text-center">
 				<div class="d-flex justify-content-between">
 					<span>Library books</span>
+					{% if perms.Library__main.add_book %}
 					<span
 						><a href="{% url 'books__add' %}" class="nav-link" title="Add a new book"><b> &#8593; Add book</b></a></span
 					>
+					{% endif %}
 				</div>
 			</caption>
 			<thead>
@@ -28,8 +30,10 @@
 					<th scope="col">Short description</th>
 					<th scope="col">Availability</th>
 					<th scope="col">Rent book</th>
+					{% if perms.Library__main.change_book and perms.Library__main.delete_book %}
 					<th scope="col">Edit</th>
 					<th scope="col">Delete</th>
+					{% endif %}
 				</tr>
 			</thead>
 			<tbody class="table-group-divider">
@@ -48,29 +52,33 @@
 					<td class="text-danger"><b>{{i.status}}</b></td>
 					{% endif %}
 					<td><a href="{% url 'books__rent' i.id %}" class="nav-link text-center" title="Rent book">&#10797;</a></td>
-					<!-- hide from user -->
+					{% if perms.Library__main.change_book and perms.Library__main.delete_book %}
 					<td><a href="{% url 'books__edit' i.id %}" class="nav-link text-center" title="Edit book">&#9998;</a></td>
 					<td><a href="{% url 'books__delete' i.id %}" class="nav-link text-center" title="Delete book">&#10008;</a></td>
+					{% endif %}
 				</tr>
 				{% endfor %}
 			</tbody>
 		</table>
+		{% if perms.Library__main.view_book and perms.Library__main.view_bookinstance %}
 		<div class="d-flex justify-content-center mb-3">
 			<a href="{% url 'books__My_loaned' %}" class="nav-link" title="Loaned books"><b>My Books</b></a>
 			<span class="mx-3">|</span>
 			<a href="{% url 'books__available' %}" class="nav-link" title="Available books">Available Books</a>
 		</div>
-		<div class="d-flex justify-content-center"><a href="/" class="nav-link" title="Back to main page">Back to main page</a></div>
-		<div class="offset-1 col-10 mt-3 text-center">
-			<a href="{% url 'books__add' %}" class="btn btn-outline-secondary" title="Add a new book">&#8593;</a>
-			<p class="text-small"><i>Add a new book</i></p>
+		<div class="d-flex justify-content-center">
+			<a href="/" class="nav-link" title="Home page">Home</a>
 		</div>
+		{% endif %}
 	</div>
 	{% else %}
 	<div class="offset-1 col-10 mt-3 text-center">
 		<p><b>There are no any books in the library.</b></p>
+		<a href="/" class="nav-link mb-3" title="Home page">Home</a>
+		{% if perms.Library__main.add_book %}
 		<a href="{% url 'books__add' %}" class="btn btn-outline-secondary" title="Add a new book">&#8593;</a>
 		<p class="text-small"><i>Add a new book</i></p>
+		{% endif %}
 	</div>
 	{% endif %}
 </div>

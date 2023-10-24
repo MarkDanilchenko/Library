@@ -1,4 +1,4 @@
-{% extends 'index.html' %} {% block content__members %}
+{% extends 'index.html' %} {% block content__members %} {% autoescape off %}
 
 <div class="row">
 	<h3 class="text-center detailedUl_h3">
@@ -41,16 +41,19 @@
 				{% endfor %}
 			</tbody>
 		</table>
+		{% if perms.Library__main.view_customuser %}
 		<div class="d-flex justify-content-center">
 			<a href="{% url 'members__list' %}" class="nav-link" title="Back">Back to members list</a>
 		</div>
+		{% endif %}
 	</div>
 	{% else %}
 	<div class="offset-1 col-10 mt-3 text-center">
 		<p><b>{{username}}</b> has no any loaned books yet.</p>
+		{% if perms.Library__main.view_customuser %}
 		<a href="{% url 'members__list' %}" class="nav-link" title="Back">Back to members list</a>
+		{% endif %}
 	</div>
 	{% endif %}
 </div>
-
-{% endblock %}
+{% endautoescape %} {% endblock %}

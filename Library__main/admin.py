@@ -1,22 +1,9 @@
 from django.contrib import admin
 from . import models
+from django.contrib.auth.admin import UserAdmin
 
 
-class CustomUserAdmin(admin.ModelAdmin):
-    # fieldsets = (
-    #     (
-    #         ("Email and password"),
-    #         {
-    #             "fields": (
-    #                 "email",
-    #                 "password",
-    #             )
-    #         },
-    #     ),
-    #     (("Username and phone"), {"fields": ("username", "phone")}),
-    #     (("Name and surname"), {"fields": ("first_name", "last_name")}),
-
-    # )
+class CustomUserAdmin(UserAdmin):
     list_display = (
         "username",
         "email",

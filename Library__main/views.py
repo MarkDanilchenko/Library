@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 from . import forms, models
 from fuzzywuzzy import fuzz
@@ -31,6 +32,7 @@ def registration(request):
 # members functions
 # members functions
 # members functions
+@permission_required("Library__main.view_customuser", raise_exception=True)
 def members__list(request):
     try:
         registeredMembers = models.CustomUser.objects.filter(is_superuser=0)
@@ -44,6 +46,7 @@ def members__list(request):
         return render(request, "members__list.html")
 
 
+@permission_required("Library__main.change_customuser", raise_exception=True)
 def members__edit(request, id):
     member = models.CustomUser.objects.get(id=id)
     form = forms.UserEditForm(instance=member)
@@ -55,6 +58,7 @@ def members__edit(request, id):
     return render(request, "members__edit.html", {"form": form})
 
 
+@permission_required("Library__main.delete_customuser", raise_exception=True)
 def members__delete(request, id):
     try:
         if models.CustomUser.objects.filter(id=id).exists():
@@ -64,6 +68,8 @@ def members__delete(request, id):
         return redirect("/members__list")
 
 
+@permission_required("Library__main.view_bookinstance", raise_exception=True)
+@permission_required("Library__main.view_customuser", raise_exception=True)
 def members__loans(request, id):
     try:
         member_loanes = models.BookInstance.objects.filter(user=id)
@@ -83,6 +89,7 @@ def members__loans(request, id):
 # books functions
 # books functions
 # books functions
+@permission_required("Library__main.view_book", raise_exception=True)
 def books__list(request):
     try:
         all_books = models.Book.objects.all()
@@ -94,6 +101,7 @@ def books__list(request):
         return render(request, "books__list.html")
 
 
+@permission_required("Library__main.view_book", raise_exception=True)
 def books__available(request):
     try:
         available_books = models.Book.objects.filter(
@@ -111,6 +119,7 @@ def books__available(request):
         return render(request, "books__list_available.html")
 
 
+@permission_required("Library__main.view_bookinstance", raise_exception=True)
 def books__My_loaned(request):
     try:
         my_loaned_books = models.BookInstance.objects.filter(user=request.user)
@@ -128,6 +137,7 @@ def books__My_loaned(request):
         return render(request, "books__list_my_loaned.html")
 
 
+@permission_required("Library__main.add_book", raise_exception=True)
 def books__add(request):
     if request.method == "POST":
         form = forms.BookForm(request.POST)
@@ -139,6 +149,7 @@ def books__add(request):
     return render(request, "books__add.html", {"form": form})
 
 
+@permission_required("Library__main.change_book", raise_exception=True)
 def books__edit(request, id):
     book = models.Book.objects.get(id=id)
     form = forms.BookEditForm(instance=book)
@@ -150,6 +161,7 @@ def books__edit(request, id):
     return render(request, "books__edit.html", {"form": form})
 
 
+@permission_required("Library__main.delete_book", raise_exception=True)
 def books__delete(request, id):
     try:
         if models.Book.objects.filter(id=id).exists():
@@ -162,6 +174,7 @@ def books__delete(request, id):
 # rent/return functions
 # rent/return functions
 # rent/return functions
+@permission_required("Library__main.view_book", raise_exception=True)
 def books__rent(request, id):
     book = models.Book.objects.get(id=id)
     if book.status == models.Book.statusOption[0][0]:
@@ -174,6 +187,7 @@ def books__rent(request, id):
     return redirect("/books__list")
 
 
+@permission_required("Library__main.view_bookinstance", raise_exception=True)
 def books__return(request, id):
     book = models.BookInstance.objects.get(id=id)
     models.Book.objects.filter(id=book.book.id).update(

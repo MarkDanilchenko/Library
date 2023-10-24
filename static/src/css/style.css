@@ -601,15 +601,17 @@ footer {
 }
 
 .solution_cards_box .solution_card .so_top_icon {
-  width: fit-content;
   height: fit-content;
   background: transparent;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .solution_cards_box .solution_card .so_top_icon img {
   width: 40%;
   height: 40%;
+  max-width: 150px;
+  max-height: 150px;
 }
 
 /*start media query*/

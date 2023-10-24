@@ -9,16 +9,19 @@
 	<div class="col-lg-6 col-10">
 		<dl class="text-center">
 			<hr class="offset-1 col-10" />
-			<!-- hide from user -->
+			{% if perms.Library__main.delete_book and perms.Library__main.add_book and perms.Library__main.change_book %}
 			<dt><b>FOR ADMIN ONLY</b> - Edit books information:</dt>
 			<dd class="text-small"><i>View, add, edit or delete books information.</i></dd>
+			{% endif %}
 			<dt>Book list:</dt>
 			<dd class="text-small">
 				<i>Browse all books in the library. <br />Find the book you are looking for and rent it by one click! <br /></i>
 			</dd>
+			{% if perms.Library__main.view_book and perms.Library__main.view_bookinstance %}
 			<a href="{% url 'books__list' %}" class="btn btn-outline-secondary my-3" title="All books">All books</a>
 			<a href="{% url 'books__available' %}" class="btn btn-outline-secondary my-3" title="Available books">Available books</a>
 			<a href="{% url 'books__My_loaned' %}" class="btn btn-secondary my-3" title="Loaned books">My books</a>
+			{% endif %}
 		</dl>
 	</div>
 </div>

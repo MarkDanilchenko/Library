@@ -1,4 +1,4 @@
-{% extends 'index.html' %} {% block content__books %}
+{% extends 'index.html' %} {% block content__books %} {% autoescape off %}
 
 <div class="row">
 	<h3 class="text-center detailedUl_h3">
@@ -24,8 +24,6 @@
 					<th scope="col">Publisher</th>
 					<th scope="col">Short description</th>
 					<th scope="col">Return book</th>
-					<th scope="col">Edit</th>
-					<th scope="col">Delete</th>
 				</tr>
 			</thead>
 			<tbody class="table-group-divider">
@@ -39,30 +37,26 @@
 					<td>{{i.book.publisher}}</td>
 					<td>{{i.book.description}}</td>
 					<td><a href="{% url 'books__return' i.id %}" class="nav-link text-center" title="Return book">&#9166;</a></td>
-					<!-- hide from user -->
-					<td><a href="{% url 'books__edit' i.id %}" class="nav-link text-center" title="Edit book">&#9998;</a></td>
-					<td><a href="{% url 'books__delete' i.id %}" class="nav-link text-center" title="Delete book">&#10008;</a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
 		</table>
+		{% if perms.Library__main.view_book and perms.Library__main.view_bookinstance %}
 		<div class="d-flex justify-content-center">
 			<a href="{% url 'books__list' %}" class="nav-link" title="Back">Back to books list</a>
 		</div>
-		<div class="offset-1 col-10 mt-3 text-center">
-			<a href="{% url 'books__add' %}" class="btn btn-outline-secondary" title="Add a new book">&#8593;</a>
-			<p class="text-small"><i>Add a new book</i></p>
-		</div>
+		{% endif %}
 	</div>
 	{% else %}
 	<div class="offset-1 col-10 mt-3 text-center">
-		<p><b>You have not</b> any loaned books.<br>
-		Check full list of books in the library to get one!</p>
+		<p>
+			<b>You have not</b> any loaned books.<br />
+			Check full list of books in the library to get one!
+		</p>
+		{% if perms.Library__main.view_book and perms.Library__main.view_bookinstance %}
 		<a href="{% url 'books__list' %}" class="nav-link mb-3" title="Back">Back to books list</a>
-		<a href="{% url 'books__add' %}" class="btn btn-outline-secondary" title="Add a new book">&#8593;</a>
-		<p class="text-small"><i>Add a new book</i></p>
+		{% endif %}
 	</div>
 	{% endif %}
 </div>
-
-{% endblock %}
+{% endautoescape %} {% endblock %}
