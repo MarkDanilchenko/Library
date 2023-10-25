@@ -69,8 +69,8 @@
 	{% else %}
 	<div class="offset-1 col-10 mt-3 text-center">
 		<p><b>There are no any available books in the library.</b></p>
-		{% if perms.Library__main.add_book %}
 		<a href="{% url 'books__list' %}" class="nav-link mb-3" title="Back">Back to books list</a>
+		{% if perms.Library__main.add_book %}
 		<a href="{% url 'books__add' %}" class="btn btn-outline-secondary" title="Add a new book">&#8593;</a>
 		<p class="text-small"><i>Add a new book</i></p>
 		{% endif %}

@@ -12,6 +12,8 @@ package-lock.json
 # media
 *.pdf
 *.sql
+!Library.sql
+db_data/
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.

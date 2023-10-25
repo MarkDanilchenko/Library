@@ -5,7 +5,7 @@ from . import forms, models
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import datetime
-
+from django.contrib.auth.models import Group
 
 # user registration
 # user registration
@@ -19,6 +19,11 @@ def registration(request):
             userpassword = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=userpassword)
             login(request, user)
+            # new Users register to Library members group!
+            group = Group.objects.get(name="Library members")
+            user = models.CustomUser.objects.get(username=username)
+            user.groups.add(group)
+            # 
             return redirect("/")
     else:
         form = forms.UserRegistrationForm()
